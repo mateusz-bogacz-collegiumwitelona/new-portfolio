@@ -1,17 +1,79 @@
-import { Moon, Languages } from "lucide-react";
+"use client";
+
+import { Disclosure } from "@headlessui/react";
+import { Moon, Languages, Menu, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { navLinks } from "@/constants/navigation";
+
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-between p-4 bg-[#111827] shadow-md">
-      <Image src="/favicon.png" alt="Logo" width={32} height={32} />
-      <p className="text-[#E5E7EB] ml-4 mr-auto">Mateusz Bogacz-Drewniak</p>
+    <Disclosure as="nav" className="bg-[#111827] shadow-md">
+      {({ open }) => (
+        <>
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="flex items-center justify-between h-16">
+              <div className="flex items-center">
+                <Image src="/favicon.png" alt="Logo" width={32} height={32} />
+                <span className="text-[#E5E7EB] ml-4 font-medium hidden sm:block">
+                  Mateusz Bogacz-Drewniak
+                </span>
+              </div>
 
-      <p className="ml-4 text-[#E5E7EB]">Contact</p>
-      <p className="ml-4 text-[#E5E7EB]">Project</p>
-      <p className="ml-4 text-[#E5E7EB]">About Me</p>
-      <p className="ml-4 text-[#E5E7EB]">Home</p>
-      <Moon className="text-[#E5E7EB] ml-4" />
-      <Languages className="text-[#E5E7EB] ml-4" />
-    </nav>
+              <div className="hidden md:flex items-center space-x-8">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="text-[#E5E7EB] hover:text-blue-400 transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+                <div className="flex items-center space-x-4 border-l border-gray-700 pl-4">
+                  <Moon
+                    className="text-[#E5E7EB] cursor-pointer hover:text-blue-400"
+                    size={20}
+                  />
+                  <Languages
+                    className="text-[#E5E7EB] cursor-pointer hover:text-blue-400"
+                    size={20}
+                  />
+                </div>
+              </div>
+
+              <div className="md:hidden flex items-center">
+                <Disclosure.Button className="inline-flex items-center justify-center p-2 text-[#E5E7EB] hover:bg-gray-800 rounded-md focus:outline-none">
+                  {open ? (
+                    <X className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <Menu className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
+              </div>
+            </div>
+          </div>
+
+          <Disclosure.Panel className="md:hidden bg-[#1f2937] border-t border-gray-700">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {navLinks.map((link) => (
+                <Disclosure.Button
+                  key={link.name}
+                  as={Link}
+                  href={link.href}
+                  className="block px-3 py-2 text-[#E5E7EB] hover:bg-gray-700 rounded-md text-base font-medium"
+                >
+                  {link.name}
+                </Disclosure.Button>
+              ))}
+              <div className="flex items-center space-x-6 px-3 py-3 border-t border-gray-700 mt-2">
+                <Moon className="text-[#E5E7EB]" size={20} />
+                <Languages className="text-[#E5E7EB]" size={20} />
+              </div>
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
   );
 }
