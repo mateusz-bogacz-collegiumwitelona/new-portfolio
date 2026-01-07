@@ -114,8 +114,8 @@ export default function ProjectsSection() {
 
                 <div className="mt-auto">
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {repo.allLanguages && repo.allLanguages.length > 0 ? (
-                      repo.allLanguages.map((lang: string) => (
+                    {repo.languages && repo.languages.length > 0 ? (
+                      repo.languages.map((lang: string) => (
                         <span
                           key={lang}
                           className="text-[10px] font-mono font-bold uppercase tracking-tighter px-2 py-1 bg-blue-500/10 text-blue-300 border border-blue-400/20 rounded-md"

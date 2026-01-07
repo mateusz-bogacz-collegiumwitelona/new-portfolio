@@ -5,7 +5,7 @@ const SELECTED_REPOS: string[] = ["Faily", "weather_Station", "fuel"];
 
 const REVALIDATE_TIME: number = 86400; // 24h cache
 
-export async function GetDataForIndexProjects() {
+export async function GET() {
   const res = await fetch(
     `https://api.github.com/users/${GITHUB_USERNAME}/repos`,
     {
@@ -72,5 +72,5 @@ export async function GetDataForIndexProjects() {
     })
   );
 
-  return NextResponse.json({ projects }, { status: 200 });
+  return NextResponse.json(projects);
 }
