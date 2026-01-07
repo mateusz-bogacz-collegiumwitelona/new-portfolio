@@ -6,9 +6,6 @@ import { fadeIn, staggerContainer } from "@/constants/motion";
 import { Github, ExternalLink, Code2, CodeXml } from "lucide-react";
 import Button from "../ui/button";
 
-const GITHUB_USERNAME = "mateusz-bogacz-collegiumwitelona";
-const SELECTED_REPOS = ["Faily", "weather_Station", "fuel"];
-
 export default function ProjectsSection() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,41 +14,11 @@ export default function ProjectsSection() {
   useEffect(() => {
     const fetchRepos = async () => {
       try {
-        const res = await fetch(
-          `https://api.github.com/users/${GITHUB_USERNAME}/repos`
-        );
+        const res = await fetch("/api/github");
 
-        if (!res.ok) {
-          throw new Error(`GitHub API error: ${res.status}.`);
-        }
+        if (!res.ok) throw new Error(`GitHub API error: ${res.status}.`);
 
-        const allRepos = await res.json();
-
-        const filtered = allRepos.filter((repo: any) =>
-          SELECTED_REPOS.map((name) => name.toLowerCase()).includes(
-            repo.name.toLowerCase()
-          )
-        );
-
-        const projectsWithLanguages = await Promise.all(
-          filtered.map(async (repo: any) => {
-            try {
-              const langRes = await fetch(repo.languages_url);
-              const langData = await langRes.json();
-              return {
-                ...repo,
-                allLanguages:
-                  Object.keys(langData).length > 0
-                    ? Object.keys(langData)
-                    : [repo.language].filter(Boolean),
-              };
-            } catch (e) {
-              return { ...repo, allLanguages: [repo.language].filter(Boolean) };
-            }
-          })
-        );
-
-        setProjects(projectsWithLanguages);
+        setProjects(await res.json());
       } catch (err: any) {
         console.error(err);
         setError(err.message);
