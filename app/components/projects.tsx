@@ -4,17 +4,25 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer } from "@/app/constants/motion";
 import { Github, ExternalLink, Code2, CodeXml } from "lucide-react";
-import Button from "../ui/button";
+import Button from "./ui/button";
 
-export default function ProjectsSection() {
+interface ProjectsSectionProps {
+  isFullList?: boolean;
+}
+
+export default function ProjectsSection({
+  isFullList = false,
+}: ProjectsSectionProps) {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchRepos = async () => {
+      setLoading(true);
       try {
-        const res = await fetch("/api/github");
+        const endpoint = isFullList ? "/api/github?all=true" : "/api/github";
+        const res = await fetch(endpoint);
 
         if (!res.ok) throw new Error(`GitHub API error: ${res.status}.`);
 
@@ -28,14 +36,15 @@ export default function ProjectsSection() {
     };
 
     fetchRepos();
-  }, []);
+  }, [isFullList]);
 
   if (loading)
     return (
       <div className="text-center py-20 text-blue-400 font-mono animate-pulse">
-        Fetching your work...
+        {isFullList ? "Loading full portfolio..." : "Fetching featured work..."}
       </div>
     );
+
   if (error)
     return (
       <div className="text-center py-20 text-red-400 font-mono text-xs px-4">
@@ -44,12 +53,17 @@ export default function ProjectsSection() {
     );
 
   return (
-    <section className="relative bg-[#111827] pt-10 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section
+      id="projects"
+      className={`relative bg-[#111827] px-4 sm:px-6 lg:px-8 overflow-hidden ${
+        isFullList ? "pt-32 pb-24" : "pt-10 pb-24"
+      }`}
+    >
       <motion.div
         variants={staggerContainer(0.2, 0.1)}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.25 }}
+        viewport={{ once: true, amount: 0.1 }}
         className="max-w-7xl mx-auto"
       >
         <motion.div
@@ -57,10 +71,10 @@ export default function ProjectsSection() {
           className="text-center mb-16"
         >
           <h2 className="text-blue-400 text-sm md:text-base font-mono tracking-widest uppercase mb-2">
-            Portfolio
+            {isFullList ? "Full Archive" : "Portfolio"}
           </h2>
           <h1 className="text-4xl md:text-5xl font-extrabold text-white">
-            Featured{" "}
+            {isFullList ? "All My" : "Featured"}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
               Projects
             </span>
@@ -71,7 +85,7 @@ export default function ProjectsSection() {
           {projects.map((repo: any, index: number) => (
             <motion.div
               key={repo.id}
-              variants={fadeIn("up", "spring", index * 0.2, 0.75)}
+              variants={fadeIn("up", "spring", index * 0.1, 0.75)}
               className="group h-full"
             >
               <div className="relative h-full bg-gray-900/40 border border-gray-800 rounded-2xl p-7 backdrop-blur-md flex flex-col justify-between hover:border-blue-500/50 transition-all duration-300 shadow-xl">
@@ -108,28 +122,21 @@ export default function ProjectsSection() {
 
                   <p className="text-gray-400 text-sm leading-relaxed mb-8 line-clamp-3">
                     {repo.description ||
-                      "Personal project focusing on modern architecture and clean code implementation."}
+                      "Personal project built with modern technologies."}
                   </p>
                 </div>
 
                 <div className="mt-auto">
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {repo.languages && repo.languages.length > 0 ? (
-                      repo.languages.map((lang: string) => (
-                        <span
-                          key={lang}
-                          className="text-[10px] font-mono font-bold uppercase tracking-tighter px-2 py-1 bg-blue-500/10 text-blue-300 border border-blue-400/20 rounded-md"
-                        >
-                          {lang}
-                        </span>
-                      ))
-                    ) : (
-                      <span className="text-[10px] text-gray-600 font-mono italic">
-                        No tags detected
+                    {repo.languages?.map((lang: string) => (
+                      <span
+                        key={lang}
+                        className="text-[10px] font-mono font-bold uppercase tracking-tighter px-2 py-1 bg-blue-500/10 text-blue-300 border border-blue-400/20 rounded-md"
+                      >
+                        {lang}
                       </span>
-                    )}
+                    ))}
                   </div>
-
                   <a
                     href={repo.html_url}
                     target="_blank"
@@ -143,14 +150,16 @@ export default function ProjectsSection() {
           ))}
         </div>
 
-        <motion.div
-          variants={fadeIn("up", "tween", 0.6, 1)}
-          className="mt-8 text-center"
-        >
-          <Button href={`/`} icon={CodeXml}>
-            View More
-          </Button>
-        </motion.div>
+        {!isFullList && (
+          <motion.div
+            variants={fadeIn("up", "tween", 0.6, 1)}
+            className="mt-16 text-center"
+          >
+            <Button href="/projects" icon={CodeXml}>
+              View All Projects
+            </Button>
+          </motion.div>
+        )}
       </motion.div>
     </section>
   );
