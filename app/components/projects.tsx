@@ -40,14 +40,14 @@ export default function ProjectsSection({
 
   if (loading)
     return (
-      <div className="min-h-[600px] flex items-center justify-center text-blue-400 font-mono">
+      <div className="min-h-[600px] flex items-center justify-center text-blue-600 dark:text-blue-400 font-mono transition-colors">
         Fetching your work...
       </div>
     );
 
   if (error)
     return (
-      <div className="text-center py-20 text-red-400 font-mono text-xs px-4">
+      <div className="text-center py-20 text-red-500 dark:text-red-400 font-mono text-xs px-4">
         Error: {error}
       </div>
     );
@@ -55,7 +55,7 @@ export default function ProjectsSection({
   return (
     <section
       id="projects"
-      className={`relative bg-[#111827] px-4 sm:px-6 lg:px-8 overflow-hidden ${
+      className={`relative bg-white dark:bg-[#111827] px-4 sm:px-6 lg:px-8 overflow-hidden transition-colors duration-300 ${
         isFullList ? "pt-32 pb-24" : "pt-10 pb-24"
       }`}
     >
@@ -70,12 +70,12 @@ export default function ProjectsSection({
           variants={fadeIn("down", "tween", 0.2, 1)}
           className="text-center mb-16"
         >
-          <h2 className="text-blue-400 text-sm md:text-base font-mono tracking-widest uppercase mb-2">
+          <h2 className="text-blue-600 dark:text-blue-400 text-sm md:text-base font-mono tracking-widest uppercase mb-2">
             {isFullList ? "Full Archive" : "Portfolio"}
           </h2>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white transition-colors">
             {isFullList ? "All My" : "Featured"}{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
               Projects
             </span>
           </h1>
@@ -88,18 +88,18 @@ export default function ProjectsSection({
               variants={fadeIn("up", "spring", index * 0.1, 0.75)}
               className="group h-full"
             >
-              <div className="relative h-full bg-gray-900/40 border border-gray-800 rounded-2xl p-7 backdrop-blur-md flex flex-col justify-between hover:border-blue-500/50 transition-all duration-300 shadow-xl">
+              <div className="relative h-full bg-gray-50 dark:bg-gray-900/40 border border-gray-200 dark:border-gray-800 rounded-2xl p-7 backdrop-blur-md flex flex-col justify-between hover:border-blue-500/50 dark:hover:border-blue-500/50 transition-all duration-300 shadow-lg dark:shadow-xl">
                 <div>
                   <div className="flex justify-between items-start mb-6">
-                    <div className="p-3 bg-blue-500/10 rounded-lg text-blue-400">
+                    <div className="p-3 bg-blue-100 dark:bg-blue-500/10 rounded-lg text-blue-600 dark:text-blue-400 transition-colors">
                       <Code2 size={24} />
                     </div>
-                    <div className="flex gap-4 text-gray-400">
+                    <div className="flex gap-4 text-gray-500 dark:text-gray-400">
                       <a
                         href={repo.html_url}
                         target="_blank"
                         rel="noreferrer"
-                        className="hover:text-white transition-colors"
+                        className="hover:text-gray-900 dark:hover:text-white transition-colors"
                       >
                         <Github size={20} />
                       </a>
@@ -108,7 +108,7 @@ export default function ProjectsSection({
                           href={repo.homepage}
                           target="_blank"
                           rel="noreferrer"
-                          className="hover:text-white transition-colors"
+                          className="hover:text-gray-900 dark:hover:text-white transition-colors"
                         >
                           <ExternalLink size={20} />
                         </a>
@@ -116,11 +116,11 @@ export default function ProjectsSection({
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors uppercase">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors uppercase">
                     {repo.name.replace(/-/g, " ")}
                   </h3>
 
-                  <p className="text-gray-400 text-sm leading-relaxed mb-8 line-clamp-3">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 line-clamp-3 transition-colors">
                     {repo.description ||
                       "Personal project built with modern technologies."}
                   </p>
@@ -131,7 +131,7 @@ export default function ProjectsSection({
                     {repo.languages?.map((lang: string) => (
                       <span
                         key={lang}
-                        className="text-[10px] font-mono font-bold uppercase tracking-tighter px-2 py-1 bg-blue-500/10 text-blue-300 border border-blue-400/20 rounded-md"
+                        className="text-[10px] font-mono font-bold uppercase tracking-tighter px-2 py-1 bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-400/20 rounded-md transition-colors"
                       >
                         {lang}
                       </span>
@@ -140,7 +140,7 @@ export default function ProjectsSection({
                   <a
                     href={repo.html_url}
                     target="_blank"
-                    className="flex items-center text-sm font-bold text-white hover:text-blue-400 transition-colors"
+                    className="flex items-center text-sm font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     View Source <span className="ml-2">→</span>
                   </a>

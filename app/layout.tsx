@@ -5,6 +5,7 @@ import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import ScrollToAnchor from "./components/scrollToAnchor";
 import { Suspense } from "react";
+import { ThemeProvider } from "./components/themeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,16 +28,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#111827]`}
+        className={`
+          ${geistSans.variable} ${geistMono.variable} antialiased 
+          transition-colors duration-300
+          bg-white dark:bg-[#111827] 
+          text-gray-900 dark:text-[#E5E7EB]
+        `}
       >
-        <Suspense fallback={null}>
-          <ScrollToAnchor />
-        </Suspense>
-        <Navbar />
-        {children}
-        <Footer />
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <Suspense fallback={null}>
+            <ScrollToAnchor />
+          </Suspense>
+          <Navbar />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

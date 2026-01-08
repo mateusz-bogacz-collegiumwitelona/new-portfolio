@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import * as THREE from "three";
 // @ts-ignore
@@ -8,13 +8,22 @@ import NET from "vanta/dist/vanta.net.min";
 import { fadeIn, staggerContainer } from "@/app/constants/motion";
 import { ButtonLink } from "@/app/constants/buttonLink";
 import Button from "../ui/button";
+import { useTheme } from "next-themes";
 
 export function HeroSection() {
   const vantaRef = useRef<HTMLDivElement>(null);
   const vantaEffect = useRef<any>(null);
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    if (!vantaEffect.current && vantaRef.current) {
+    if (mounted && vantaRef.current) {
+      if (vantaEffect.current) vantaEffect.current.destroy();
+
+      const isDark = resolvedTheme === "dark";
+
       vantaEffect.current = NET({
         el: vantaRef.current,
         THREE: THREE,
@@ -25,8 +34,8 @@ export function HeroSection() {
         minWidth: 200.0,
         scale: 1.0,
         scaleMobile: 1.0,
-        color: 0x3f81ff,
-        backgroundColor: 0x111827,
+        color: isDark ? 0x3f81ff : 0x2563eb,
+        backgroundColor: isDark ? 0x111827 : 0xffffff,
         points: 12.0,
         maxDistance: 20.0,
         spacing: 16.0,
@@ -34,18 +43,17 @@ export function HeroSection() {
     }
 
     return () => {
-      if (vantaEffect.current) {
-        vantaEffect.current.destroy();
-        vantaEffect.current = null;
-      }
+      if (vantaEffect.current) vantaEffect.current.destroy();
     };
-  }, []);
+  }, [mounted, resolvedTheme]);
+
+  if (!mounted) return <section className="min-h-screen bg-[#111827]" />;
 
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#111827]">
+    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-white dark:bg-[#111827] transition-colors duration-300">
       <div ref={vantaRef} className="absolute inset-0 z-0" />
 
-      <div className="absolute inset-0 z-[1] bg-black/40 pointer-events-none" />
+      <div className="absolute inset-0 z-[1] bg-white/10 dark:bg-black/40 pointer-events-none transition-colors" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center text-center">
         <motion.div
@@ -56,16 +64,16 @@ export function HeroSection() {
         >
           <motion.h2
             variants={fadeIn("up", "tween", 0.2, 1)}
-            className="text-blue-400 text-lg md:text-xl font-mono mb-4 tracking-widest uppercase"
+            className="text-blue-600 dark:text-blue-400 text-lg md:text-xl font-mono mb-4 tracking-widest uppercase transition-colors"
           >
             Computer Science Engineering
           </motion.h2>
 
           <motion.h1
             variants={fadeIn("up", "tween", 0.4, 1)}
-            className="text-5xl md:text-7xl font-extrabold text-white leading-tight"
+            className="text-5xl md:text-7xl font-extrabold text-gray-900 dark:text-white leading-tight transition-colors"
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
               Mateusz's
             </span>{" "}
             Portfolio
@@ -73,24 +81,23 @@ export function HeroSection() {
 
           <motion.p
             variants={fadeIn("up", "tween", 0.6, 1)}
-            className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
+            className="mt-6 text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto transition-colors"
           >
             A showcase of my projects, skills, and achievements in the field of
             software engineering.
           </motion.p>
-          {ButtonLink.map((button) => (
-            <Button key={button.src} href={button.src} icon={button.icon}>
-              {button.text}
-            </Button>
-          ))}
-          <motion.div
-            variants={fadeIn("up", "tween", 0.8, 1)}
-            className="mt-10 flex gap-4 justify-center"
-          ></motion.div>
+
+          <div className="mt-10 flex flex-wrap gap-2 justify-center">
+            {ButtonLink.map((button) => (
+              <Button key={button.src} href={button.src} icon={button.icon}>
+                {button.text}
+              </Button>
+            ))}
+          </div>
         </motion.div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#111827] to-transparent z-20"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-[#111827] to-transparent z-20 transition-colors duration-300"></div>
     </section>
   );
 }

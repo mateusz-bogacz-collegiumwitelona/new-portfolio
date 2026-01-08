@@ -5,11 +5,11 @@ import IndexContact from "./components/index/indexContact";
 
 export default function Home() {
   return (
-    <div className="bg-[#1F2937]">
+    <main>
       <HeroSection />
       <AboutSection />
       <ProjectsSection />
       <IndexContact />
-    </div>
+    </main>
   );
 }
