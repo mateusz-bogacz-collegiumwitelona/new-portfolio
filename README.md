@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Modern Tech Portfolio - Mateusz Bogacz-Drewniak
 
-## Getting Started
+Nowoczesne, responsywne portfolio deweloperskie zbudowane z wykorzystaniem najnowszych technologii webowych. Projekt łączy w sobie estetykę "Premium Tech" z pełną funkcjonalnością wielojęzyczności oraz dynamicznym pobieraniem danych.
 
-First, run the development server:
+## Główne Funkcje
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Multi-language Support**: Pełna obsługa języka polskiego i angielskiego za pomocą `next-intl`.
+- **Dark & Light Mode**: System motywów z płynnymi przejściami obsługiwany przez `next-themes`.
+- **3D Hero Section**: Dynamiczne tło animowane w czasie rzeczywistym przy użyciu `Vanta.js` (Three.js), reagujące na zmianę motywu.
+- **GitHub API Integration**: Automatyczne pobieranie informacji o wybranych repozytoriach, opisów oraz użytych technologii.
+- **Responsive Design**: Pełna responsywność (Mobile-First) zbudowana w Tailwind CSS v4.
+- **Formularz Kontaktowy**: W pełni funkcjonalna obsługa wiadomości zintegrowana z Formspree.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Stack Technologiczny
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: [Next.js 16]
+- **Stylizowanie**: [Tailwind CSS v4]
+- **Animacje**: [Framer Motion]
+- **Język**: [TypeScript]
+- **Biblioteki**:
+  - `next-intl` (i18n)
+  - `next-themes` (Dark Mode)
+  - `lucide-react` (Icons)
+  - `vanta` & `three.js` (3D Background)
+  - `headlessui` (Modals/Navigation)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Inspiracja
 
-## Learn More
+Projekt powstał w oparciu o estetykę i strukturę szablonu [Frontend Developer Portfolio](https://github.com/niladri-1/Frontend-develope-portfolio), który posłużył jako fundament do stworzenia własnej, rozbudowanej wersji opartej na nowoczesnym stacku Next.js.
 
-To learn more about Next.js, take a look at the following resources:
+## Instalacja i Uruchomienie
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Sklonuj repozytorium:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   git clone https://github.com/twoj-nick/portfolio.git
+   ```
 
-## Deploy on Vercel
+2. Zainstaluj zależności:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Skonfiguruj zmienne środowiskowe w pliku .env.local:
+
+   ```bash
+   GITHUB_TOKEN=wkleij_swój_token
+   ```
+
+4. Uruchom serwer developerski:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Otwórz `http://localhost:3000` w przeglądarce.
