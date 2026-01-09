@@ -13,5 +13,17 @@
     "projects": "Projects",
     "contact": "Find Me",
     "info": "Mateusz Bogacz-Drewniak. Built with Next.js and Tailwind."
+  },
+  "Projects": {
+    "fetch": "Fetching your work...",
+    "error": "Error:",
+    "portfolio": "Portfolio",
+    "fullArchive": "Full Archive",
+    "featured": "Featured",
+    "allMy": "All My",
+    "projects": "Projects",
+    "defaultDescription": "Personal project built with modern technologies.",
+    "viewSource": "View Source",
+    "viewAll": "View All Projects"
   }
 }

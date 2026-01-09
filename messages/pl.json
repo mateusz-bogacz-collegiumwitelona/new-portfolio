@@ -13,5 +13,17 @@
     "projects": "Projekty",
     "contact": "Znajdź mnie",
     "info": "Mateusz Bogacz-Drewniak. Zbudowane z Next.js i Tailwind."
+  },
+  "Projects": {
+    "fetch": "Pobieranie Twoich projektów...",
+    "error": "Błąd:",
+    "portfolio": "Portfolio",
+    "fullArchive": "Pełne Archiwum",
+    "featured": "Wyróżnione",
+    "allMy": "Wszystkie moje",
+    "projects": "Projekty",
+    "defaultDescription": "Projekt osobisty stworzony przy użyciu nowoczesnych technologii.",
+    "viewSource": "Zobacz źródło",
+    "viewAll": "Zobacz wszystkie projekty"
   }
 }

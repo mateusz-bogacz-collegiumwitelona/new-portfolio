@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { fadeIn, staggerContainer } from "@/app/[locale]/constants/motion";
 import { Github, ExternalLink, Code2, CodeXml } from "lucide-react";
 import Button from "./ui/button";
+import { useTranslations } from "next-intl";
 
 interface ProjectsSectionProps {
   isFullList?: boolean;
@@ -13,6 +14,8 @@ interface ProjectsSectionProps {
 export default function ProjectsSection({
   isFullList = false,
 }: ProjectsSectionProps) {
+  const t = useTranslations("Projects");
+
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -40,15 +43,15 @@ export default function ProjectsSection({
 
   if (loading)
     return (
-      <div className="min-h-[600px] flex items-center justify-center text-blue-600 dark:text-blue-400 font-mono transition-colors">
-        Fetching your work...
+      <div className="min-h-[600px] flex items-center justify-center text-blue-600 dark:text-blue-400 font-mono transition-colors text-center px-4">
+        {t("fetch")}
       </div>
     );
 
   if (error)
     return (
       <div className="text-center py-20 text-red-500 dark:text-red-400 font-mono text-xs px-4">
-        Error: {error}
+        {t("error")} {error}
       </div>
     );
 
@@ -71,12 +74,12 @@ export default function ProjectsSection({
           className="text-center mb-16"
         >
           <h2 className="text-blue-600 dark:text-blue-400 text-sm md:text-base font-mono tracking-widest uppercase mb-2">
-            {isFullList ? "Full Archive" : "Portfolio"}
+            {isFullList ? t("fullArchive") : t("portfolio")}
           </h2>
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white transition-colors">
-            {isFullList ? "All My" : "Featured"}{" "}
+            {isFullList ? t("allMy") : t("featured")}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
-              Projects
+              {t("projects")}
             </span>
           </h1>
         </motion.div>
@@ -121,8 +124,7 @@ export default function ProjectsSection({
                   </h3>
 
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 line-clamp-3 transition-colors">
-                    {repo.description ||
-                      "Personal project built with modern technologies."}
+                    {repo.description || t("defaultDescription")}
                   </p>
                 </div>
 
@@ -142,7 +144,7 @@ export default function ProjectsSection({
                     target="_blank"
                     className="flex items-center text-sm font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
-                    View Source <span className="ml-2">→</span>
+                    {t("viewSource")} <span className="ml-2">→</span>
                   </a>
                 </div>
               </div>
@@ -156,7 +158,7 @@ export default function ProjectsSection({
             className="mt-16 text-center"
           >
             <Button href="/projects" icon={CodeXml}>
-              View All Projects
+              {t("viewAll")}
             </Button>
           </motion.div>
         )}
