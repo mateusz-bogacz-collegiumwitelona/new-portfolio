@@ -26,19 +26,20 @@ export const fadeIn = (
   };
 };
 
-export const fadeInScale = (delay: number = 0): Variants => {
+export const fadeInScale = (
+  delay: number = 0,
+  type: "spring" | "tween" = "spring",
+  duration: number = 0.8
+): Variants => {
   return {
-    hidden: {
-      opacity: 0,
-      scale: 0.95,
-    },
+    hidden: { opacity: 0, scale: 0.95 },
     show: {
       opacity: 1,
       scale: 1,
       transition: {
-        type: type,
-        delay: delay,
-        duration: duration,
+        type,
+        delay,
+        duration,
         ease: [0.25, 0.25, 0.25, 0.75],
       },
     },
@@ -87,9 +88,9 @@ export const slideIn = (
       x: 0,
       y: 0,
       transition: {
-        type,
+        type: "spring",
         delay,
-        duration,
+        duration: 0.8,
         ease: "easeOut",
       },
     },

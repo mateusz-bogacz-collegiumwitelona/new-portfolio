@@ -11,7 +11,7 @@ import Button from "../ui/button";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 
-export function HeroSection() {
+export default function HeroSection() {
   const t = useTranslations("Hero");
 
   const vantaRef = useRef<HTMLDivElement>(null);
