@@ -34,5 +34,22 @@
     "projects": "Moje Projekty",
     "contact": "Kontakt",
     "cv": "Pobierz CV"
+  },
+  "Contact": {
+    "contact": "Kontakt",
+    "title1": "Skontaktuj się",
+    "title2": "ze mną",
+    "description": "Najprostsza droga do komunikacji ze mną. Napisz maila lub znajdź mnie w mediach społecznościowych.",
+    "name": "Imię",
+    "namePlaceholder": "Twoje Imię",
+    "email": "Email",
+    "emailPlaceholder": "twoj@email.com",
+    "message": "Wiadomość",
+    "messagePlaceholder": "W czym mogę pomóc?",
+    "send": "Wyślij wiadomość",
+    "sending": "Wysyłanie...",
+    "success": "Wiadomość wysłana!",
+    "error": "Wystąpił błąd. Spróbuj ponownie.",
+    "thankYou": " Dziękuję! Odpowiem tak szybko, jak to możliwe."
   }
 }

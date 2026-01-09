@@ -12,8 +12,11 @@ import {
   Linkedin,
 } from "lucide-react";
 import { socialLinks } from "@/app/[locale]/constants/socialLinks";
+import { useTranslations } from "next-intl";
 
 export default function IndexContact() {
+  const t = useTranslations("Contact");
+
   const [status, setStatus] = useState<
     "idle" | "sending" | "success" | "error"
   >("idle");
@@ -64,17 +67,16 @@ export default function IndexContact() {
           >
             <div>
               <h2 className="text-blue-600 dark:text-blue-400 text-sm font-mono tracking-widest uppercase mb-2">
-                Contact
+                {t("contact")}
               </h2>
               <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 transition-colors">
-                Let's{" "}
+                {t("title1")}{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
-                  Connect
+                  {t("title2")}
                 </span>
               </h1>
               <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed transition-colors">
-                Najprostsza droga do komunikacji ze mną. Napisz maila lub znajdź
-                mnie w mediach społecznościowych.
+                {t("description")}
               </p>
             </div>
 
@@ -110,17 +112,17 @@ export default function IndexContact() {
 
               {[
                 {
-                  label: "Imię",
+                  label: t("name"),
                   name: "name",
                   type: "text",
-                  placeholder: "Twoje Imię",
+                  placeholder: t("namePlaceholder"),
                   icon: User,
                 },
                 {
-                  label: "Email",
+                  label: t("email"),
                   name: "email",
                   type: "email",
-                  placeholder: "twoj@email.com",
+                  placeholder: t("emailPlaceholder"),
                   icon: Mail,
                 },
               ].map((field) => (
@@ -140,13 +142,13 @@ export default function IndexContact() {
 
               <div className="space-y-2">
                 <label className="text-blue-600 dark:text-blue-400 font-mono text-xs uppercase tracking-widest ml-1 flex items-center gap-2">
-                  <MessageSquare size={14} /> Wiadomość
+                  <MessageSquare size={14} /> {t("message")}
                 </label>
                 <textarea
                   required
                   name="message"
                   rows={4}
-                  placeholder="W czym mogę pomóc?"
+                  placeholder={t("messagePlaceholder")}
                   className="w-full bg-white dark:bg-[#1E2B45]/50 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all resize-none shadow-sm dark:shadow-none"
                 ></textarea>
               </div>
@@ -162,17 +164,17 @@ export default function IndexContact() {
               >
                 {status === "idle" && (
                   <>
-                    Wyślij wiadomość <Send size={18} />
+                    {t("send")} <Send size={18} />
                   </>
                 )}
-                {status === "sending" && "Wysyłanie..."}
-                {status === "success" && "Wiadomość wysłana!"}
-                {status === "error" && "Błąd! Spróbuj ponownie."}
+                {status === "sending" && t("sending")}
+                {status === "success" && t("success")}
+                {status === "error" && t("error")}
               </button>
 
               {status === "success" && (
                 <p className="text-green-600 dark:text-green-400 text-center text-sm font-mono animate-pulse transition-colors">
-                  Dziękuję! Odpowiem tak szybko, jak to możliwe.
+                  {t("thankYou")}
                 </p>
               )}
             </form>
